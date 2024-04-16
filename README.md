@@ -22,3 +22,27 @@ Este é um sistema bancário simples desenvolvido em Python. Ele permite aos usu
 
 1. Clone este repositório:
 
+https://github.com/valdenioferreira/sistbancariopy.git
+
+
+2. Navegue até o diretório do projeto:
+
+cd Criando um Sistema Bancário com Python
+
+3. Execute o script `main.py`:
+
+py main.py
+
+4. Siga as instruções no console para realizar as operações desejadas.
+
+        ============= Banco VBank S.A. =============
+        
+        [1] Depositar
+        
+        [2] Sacar
+        
+        [3] Extrato
+        
+        [4] Sair
+        
+        =============================================
