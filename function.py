@@ -8,7 +8,9 @@ def menu():
         
         [3] Extrato
         
-        [4] Sair
+        [4] Criar Cliente
+        
+        [5] Sair
         
         =============================================
     
