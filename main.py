@@ -8,13 +8,13 @@ MAXIMO_SAQUE_DIARIO = 3
 cliente = []
 conta = []
 
-def depositar(saldo, extrato,/):
+def depositar(saldo, extrato):
     valor_deposito = float(input("Quanto deseja depositar? "))
     saldo += valor_deposito
     extrato += f"Depósito: R$ {valor_deposito:.2f}\n"
     return saldo, extrato
 
-def sacar(*,saldo, extrato, limite, numero_saques):
+def sacar(*, saldo, extrato, limite, numero_saques):
     valor_saque = float(input("Quanto deseja sacar? "))
     if valor_saque >= limite:
         print("Limite de saque excedido. Tente novamente mais tarde.")    
@@ -29,7 +29,7 @@ def sacar(*,saldo, extrato, limite, numero_saques):
             print("Saldo insuficiente.")
     return saldo, extrato, numero_saques
 
-def exibir_extrato(saldo, /,extrato, numero_saques):
+def exibir_extrato(saldo, extrato, numero_saques):
     print("EXTRATO".center(50, "="))
     print("Não foram realizadas movimentações." if not extrato else extrato)
     print("SALDO ATUALIZADO".center(50, "="))
@@ -37,13 +37,21 @@ def exibir_extrato(saldo, /,extrato, numero_saques):
     print("".center(50, "="))
     print(f"\nSaques: {numero_saques}\n")
     
-def usuario(nome,data_de_nascimento,cpf,endereco):
+def usuario(nome, data_de_nascimento, cpf, endereco):
+    cliente = {
+        "nome": nome,
+        "data_de_nascimento": data_de_nascimento,
+        "cpf": cpf,
+        "endereco": endereco
+    }
+    return cliente
+    
+def exibir_cliente_cadastrado(nome, endereco):
+    dados_cliente = {}
+    dados_cliente["nome"] = nome
+    dados_cliente["endereco"] = endereco
+    return dados_cliente
 
-        cliente.append(nome)
-        cliente.append(cpf)
-        cliente.append(endereco)
-        cliente.append(data_de_nascimento)
-        return cliente
 
 while True:
     opcao = input(menu())
@@ -53,7 +61,7 @@ while True:
     elif opcao == "2":
         saldo, extrato, numero_saques = sacar(saldo=saldo, extrato=extrato, limite=limite, numero_saques=numero_saques)
     elif opcao == "3":
-        exibir_extrato(saldo=saldo, extrato=extrato, numero_saques=numero_saques)
+        exibir_extrato(saldo, extrato, numero_saques)
     elif opcao == "4":
         nome = input("Digite seu nome: ")
         cpf = input("Digite seu cpf: ")
@@ -63,14 +71,71 @@ while True:
         for c in cliente:
             if c == cpf:
                 cpf_existe = True
-                print("CPF já existe.")
+                print(50*"=")
+                print("\nEste CPF já tem uma conta cadastrada!.\n")
+                print(50*"=")
                 break
         
         # Se o CPF não existir, solicita as informações adicionais
         if not cpf_existe:
-            endereco = input("Digite seu endereco: ")
+            endereco = {
+                "logradouro": input("Digite sua rua: "),
+                "bairro": input("Digite seu bairro: "),
+                "cidade": input("Digite sua cidade: "),
+                "sigla_do_estado": input("Digite a UF do estado: "),
+                "estado": input("Digite seu estado: ")
+            }
             data_de_nascimento = input("Digite sua data de nascimento: ")
-            usuario(nome=nome, cpf=cpf, endereco=endereco, data_de_nascimento=data_de_nascimento)
-
+            novo_cliente = usuario(nome=nome, cpf=cpf, endereco=endereco, data_de_nascimento=data_de_nascimento)
+            cliente.append(novo_cliente)
     elif opcao == "5":
+        cpf_busca = input("Digite o cpf do cliente: ")
+
+        for c in cliente:
+            if c["cpf"] == cpf_busca:
+                dados_cliente = exibir_cliente_cadastrado(nome=c["nome"], endereco=c["endereco"])
+                print("DADOS DO CLIENTE".center(50, '='))
+                print("CLIENTE CADASTRADO NO BANCO".center(50, '='))
+                print(f"Nome do Cliente: {dados_cliente['nome']}\n")
+                print("ENDERECO DO CLIENTE".center(50, "="))
+                endereco_formatado = dados_cliente["endereco"]
+                endereco_formatado_str = f"{endereco_formatado['logradouro']} - {endereco_formatado['bairro']} - {endereco_formatado['cidade']}/{endereco_formatado['sigla_do_estado']} - {endereco_formatado['estado']}"
+                print(f"Endereço de cadastro: {endereco_formatado_str}")
+            else:
+                print(f"{cpf_busca} não encontrado no banco VBank, por favor crie uma conta.")
+                decisao_conta = input("Deseja criar uma conta? (Sim ou Não) : ")
+                if decisao_conta == "Sim":
+                    nome = input("Digite seu nome: ")
+                    cpf = input("Digite seu cpf: ")
+
+                    # Verifica se o CPF já existe
+                    cpf_existe = False
+                    for c in cliente:
+                        if c["cpf"] == cpf:
+                            cpf_existe = True
+                            print(50*"=")
+                            print("\nEste CPF já tem uma conta cadastrada!.\n")
+                            print(50*"=")
+                            break
+                    
+                    # Se o CPF não existir, solicita as informações adicionais
+                    if not cpf_existe:
+                        endereco = {
+                            "logradouro": input("Digite sua rua: "),
+                            "bairro": input("Digite seu bairro: "),
+                            "cidade": input("Digite sua cidade: "),
+                            "sigla_do_estado": input("Digite a UF do estado: "),
+                            "estado": input("Digite seu estado: ")
+                        }
+                        data_de_nascimento = input("Digite sua data de nascimento: ")
+                        novo_cliente = usuario(nome=nome, cpf=cpf, endereco=endereco, data_de_nascimento=data_de_nascimento)
+                        cliente.append(novo_cliente)
+                        pass
+                    else:
+                        print("Tenha um bom dia!")
+                        break
+                else:
+                    print("Tenha um bom dia!")
+                break
+    elif opcao == "6":
         break

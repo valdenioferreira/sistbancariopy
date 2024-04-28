@@ -10,7 +10,9 @@ def menu():
         
         [4] Criar Cliente
         
-        [5] Sair
+        [5] Exibir cliente
+        
+        [6] Sair
         
         =============================================
     
