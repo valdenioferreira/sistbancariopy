@@ -7,6 +7,8 @@ Este é um sistema bancário simples desenvolvido em Python. Ele permite aos usu
 1. **Realizar Saque**: Os clientes podem sacar uma determinada quantia de dinheiro de sua conta.
 2. **Realizar Depósito**: Os clientes podem depositar uma quantia específica de dinheiro em sua conta.
 3. **Consultar Extrato**: Os clientes podem verificar o histórico de transações de sua conta.
+4. **Criar Cliente**: Pode criar um cliente vinculado ao banco.
+5. **Exibir Cliente**: Exibe os dados do Cliente cadastrado como nome e endereço de cadastro.
 
 ## Conceitos Utilizados
 
@@ -35,6 +37,7 @@ py main.py
 
 4. Siga as instruções no console para realizar as operações desejadas.
 
+
         ============= Banco VBank S.A. =============
         
         [1] Depositar
@@ -43,6 +46,12 @@ py main.py
         
         [3] Extrato
         
-        [4] Sair
+        [4] Criar Cliente
+        
+        [5] Exibir cliente
+        
+        [6] Sair
         
         =============================================
+    
+
