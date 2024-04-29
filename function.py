@@ -12,7 +12,9 @@ def menu():
         
         [5] Exibir cliente
         
-        [6] Sair
+        [6] Criar conta
+        
+        [7] Sair
         
         =============================================
     

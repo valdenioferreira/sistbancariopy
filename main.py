@@ -1,4 +1,5 @@
 from function import menu
+import random
 
 saldo = 0
 extrato = ""
@@ -7,6 +8,7 @@ numero_saques = 0
 MAXIMO_SAQUE_DIARIO = 3
 cliente = []
 conta = []
+agencia = "0001"
 
 def depositar(saldo, extrato):
     valor_deposito = float(input("Quanto deseja depositar? "))
@@ -51,6 +53,16 @@ def exibir_cliente_cadastrado(nome, endereco):
     dados_cliente["nome"] = nome
     dados_cliente["endereco"] = endereco
     return dados_cliente
+
+def criar_conta(cliente, agencia, conta,saldo):
+    conta = {
+        "numero_da_conta": random.randint(10000, 99999),
+        "cliente": cliente,
+        "agencia": agencia,
+        "saldo": saldo,
+        "extrato": ""
+    }
+    return conta
 
 
 while True:
@@ -138,4 +150,11 @@ while True:
                     print("Tenha um bom dia!")
                 break
     elif opcao == "6":
+        agencia
+        conta = criar_conta(cliente, agencia, conta,saldo)
+        print("CONTA CRIADA COM SUCESSO\n".center(50, "="))
+        print(f"Agencia: {conta['agencia']}\n")
+        print(f"Conta: {conta['numero_da_conta']}\n")
+        print(f"Saldo: {conta['saldo']}\n")
+    elif opcao == "7":
         break
